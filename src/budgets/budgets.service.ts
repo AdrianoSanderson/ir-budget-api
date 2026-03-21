@@ -52,6 +52,8 @@ export class BudgetsService {
 
     await this.repository.save(budget);
 
+    console.log('Enviando email...');
+
     await this.emailService.sendBudgetEmail(budget);
 
     return {
