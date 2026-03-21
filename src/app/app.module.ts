@@ -12,12 +12,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
         type: 'postgres',
-        host: config.get('DB_HOST'),
-        port: parseInt(config.get<string>('DB_PORT') || '5432'),
-        username: config.get('DB_USER'),
-        password: config.get('DB_PASS'),
-        database: config.get('DB_NAME'),
-  
+        url: config.get<string>('DATABASE_URL'),
+        
         autoLoadEntities: true,
         synchronize: false,
   
