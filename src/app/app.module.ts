@@ -7,13 +7,20 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     BudgetsModule,
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
         type: 'postgres',
-        url: config.get<string>('DATABASE_URL'),
-        
+        host: config.get('DB_HOST'),
+        port: config.get('DB_PORT'),
+        username: config.get('DB_USER'),
+        password: config.get('DB_PASS'),
+        database: config.get('DB_NAME'),
+
         autoLoadEntities: true,
         synchronize: false,
   
@@ -30,9 +37,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         },
       ],
     }),
-    ConfigModule.forRoot({
-      isGlobal: true,
-    })
   ],
   controllers: [],
   providers: [
