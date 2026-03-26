@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { HealthModule } from 'src/health/health.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       isGlobal: true,
     }),
     BudgetsModule,
+    HealthModule,
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
